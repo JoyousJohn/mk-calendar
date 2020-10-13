@@ -2,11 +2,17 @@
 <head>
     <title>Knolls Calendar</title>
     <link rel="stylesheet" href="css/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/scrape.js"></script>
 </head>
 <body>
     <div class="schoolOptions">
-        <label id="knolls" id="eagle">MORRIS KNOLLS</label>
+        <label id="knolls" id="eagle" onclick="knollsSelected()">MORRIS KNOLLS</label>
         <label id="hills">MORRIS HILLS</label>
+    </div>
+    <div id="knollsCalendar" style="visibility: hidden">
+        <label>Check console for returns</label>
     </div>
 </body>
 </html>
