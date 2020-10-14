@@ -33,26 +33,30 @@ async function scrapeKnolls() {
                 eventName[i] = splitEvent[0]
             }
             eventWhere[i] = "Virtual"
+        }
 
         //If cancelled
-        } else if(event.toLowerCase().includes("canceled")) {
+        if(event.toLowerCase().includes("canceled")) {
             if(event.includes("CANCELED -")) {
                 splitEvent = event.split("CANCELED -")
                 eventName[i] = splitEvent[1]
             }
             eventStatus[i] = "Canceled"
+        }
 
         //Else name is entire event
-        } else {
+        if(eventName[i] == null) { //If name wasn't altered with set name to event-summary
             eventName[i] = event
         }
     }
     //console.log(tempEvents); //Logging
     for(i = 0; i < 15; i++) { //Looping labels/events
-        if(eventStatus[i] == "Canceled") {
-            $("#event" + [i]).text("Name: " + eventName[i] + " Status: Canceled");
-        } else {
-            $("#event" + [i]).text("Name: " + eventName[i]);
+        var extraInfo = ""
+        if(eventStatus[i] != null) { //Is cancelled
+            extraInfo = " Status: Canceled"
+        } else if(eventWhere[i] == "Virtual") { //Is virtual
+            extraInfo = extraInfo + " Status: Virtual"
         }
+        $("#event" + [i]).text("Name: " + eventName[i] + "      " + extraInfo);
     }
 }
