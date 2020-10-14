@@ -12,26 +12,47 @@ async function scrapeKnolls() {
     //console.log(response.data)
     var eventName = []
     var eventWhere = []
+    var eventStatus = [] //Might use eventCancelled boolean instead
 
     var tempEvents = []
     for (i = 0; i < $(response.data).find(".event-summary").length; i++) { //Loops through events
         tempEvents.push($(response.data).find(".event-summary").eq(i).text()) //Adds events to array
 
-        if(tempEvents[i].includes("VIRTUAL - ")) {
+        var event = tempEvents[i] //Simplicity Note: can't use toLowerCase here. Must repeat in if statements. :(
+        //If virtual
+        if(event.toLowerCase().includes("virtual")) { //.includes is case sensitive for some reason
+            //console.log("true") //Checking to see if retrieved correctly
+            if(event.includes("VIRTUAL - ")) {
+                splitEvent = event.split("VIRTUAL - ")
+                eventName[i] = splitEvent[1]
+            } else if(event.includes(", (Virtual)")) { //Unique for "NHS Meeting,"
+                splitEvent = event.split(", (Virtual)")
+                eventName[i] = splitEvent[0]
+            } else if(event.includes(" (Virtual)")) {
+                splitEvent = event.split(" (Virtual)")
+                eventName[i] = splitEvent[0]
+            }
             eventWhere[i] = "Virtual"
-            splitEvent = tempEvents[i].split("VIRTUAL - ")
-            eventName[i] = splitEvent[1]
-        } else if(tempEvents[i].includes(" (Virtual)")) {
-            eventWhere[i] = "Virtual"
-            splitEvent = tempEvents[i].split(" (Virtual)")
-            eventName[i] = splitEvent[0]
+
+        //If cancelled
+        } else if(event.toLowerCase().includes("canceled")) {
+            if(event.includes("CANCELED -")) {
+                splitEvent = event.split("CANCELED -")
+                eventName[i] = splitEvent[1]
+            }
+            eventStatus[i] = "Canceled"
+
+        //Else name is entire event
         } else {
-            eventName[i] = tempEvents[i]
+            eventName[i] = event
         }
     }
-    console.log(tempEvents);
-    for(i = 1; i < 16; i++) {
-        $("#event" + [i]).text("Name: " + eventName[i]);
+    //console.log(tempEvents); //Logging
+    for(i = 0; i < 15; i++) { //Looping labels/events
+        if(eventStatus[i] == "Canceled") {
+            $("#event" + [i]).text("Name: " + eventName[i] + " Status: Canceled");
+        } else {
+            $("#event" + [i]).text("Name: " + eventName[i]);
+        }
     }
-
 }
