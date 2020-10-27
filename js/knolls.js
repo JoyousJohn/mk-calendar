@@ -10,16 +10,26 @@ let year
 function getKnolls(data) { //Gets event info
     var defaultEventSummaries = [] //Just to see array in console
     for (i = 0; i < $(data).find(".item-content event-singleday, .event-summary").length; i++) { //Loops through events
-        eventName.push($(data).find(".event-summary").eq(i).text()) //Adds events to array
-        defaultEventSummaries.push($(data).find(".event-summary").eq(i).text()) //Adds events to array
+        eventName.push($(data).find(".item-content event-singleday, .event-summary").eq(i).text()) //Adds events to array
+        eventStart.push($(data).find(".event-link").eq(i).find(".event-time").text()) //Adds time to array. Took forever!
+        defaultEventSummaries.push($(data).find(".event-summary").eq(i).text()) //Adds events to test array
+
+
+
+
+
+
 
         //console.log(eventName[i])
         testVirtual(eventName[i], i) //Checks if virtual
         testCanceled(eventName[i], i) //Checks if canceled
         testRooms(eventName[i], i) //Looks for room numbers
-        removeAcronyms(eventName[i], i) //Replaces acronyms like "mtg" with "meeting"
+        removeAcronyms(i) //Replaces acronyms like "mtg" with "meeting" //Doesn't need event parameter anymore
     }
-    console.log(defaultEventSummaries)
+    //var temp = $(data).find(".event-link").eq(0).find(".event-time").text() //Thank god finally figured this out! Seems like item-content event-singleday doesn't work for some virtualMessagesFront
+    //console.log(temp)
+
+    //console.log(defaultEventSummaries)
     $("#eventQuantity").text(eventName.length + " events found:") //Displays events found (temp)
     tempSetLabels() //Sets (temp) labels to event info
 
@@ -29,11 +39,10 @@ function getKnolls(data) { //Gets event info
     year = periodRange[1]
     $("#calendarTime").text(month + " " + year)
 
-    for (i = 0; i < $(data).find(".event-time").length; i++) { //Loops through events
+    /*for (i = 0; i < $(data).find(".event-time").length; i++) { //Loops through events
         eventStart.push($(data).find(".event-time").eq(i).text()) //Adds event start time to array
-    }
-    console.log(eventStart)
-    //console.log(periodRange)
+    }*/
+    //console.log(eventStart)
 }
 
 function testVirtual(event, eventNum) { //Checks if virtual
@@ -68,7 +77,6 @@ function testCanceled(event, eventNum) { //Sees if canceled
         if(event.includes("CANCELED -")) { //At beginning of event-summary
             splitEvent = event.split("CANCELED -")
             eventName[eventNum] = splitEvent[1]
-            //console.log(eventName[eventNum])
         }
         eventStatus[eventNum] = "Canceled"
     }
@@ -125,17 +133,20 @@ function testRooms(event, eventNum) { //Checks event-summary for room numbers
     }
 }
 
-function removeAcronyms (event, eventNum) {
-    eventName[eventNum] = event.replace("Mtg", "Meeting")
+function removeAcronyms (eventNum) {
+    eventName[eventNum] = eventName[eventNum].replace("Mtg", "Meeting")
+    eventName[eventNum] = eventName[eventNum].replace("Dept", "Department")
 }
 
 function tempSetLabels() { //Sets website labels with event info
     for(i = 0; i < 61; i++) {
         var extra = ""
         if(eventStatus[i] != null) {
-            extra = " - Status: " + eventStatus[i]
+            extra = "- Status: " + eventStatus[i] //Could also +=
         } if(eventRoom[i] != null) {
-            extra += " - Room(s): " + eventRoom[i]
+            extra += " - Room(s): " + eventRoom[i] //Note space before hyphen
+        } if(eventStart[i] != "") { //Adds start time
+            extra += " - Time: " + eventStart[i]
         }
         $("#event" + [i + 1]).text("Name: " + eventName[i] + " " + extra)
     }
