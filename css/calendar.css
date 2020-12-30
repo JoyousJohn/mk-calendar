@@ -9,7 +9,7 @@
     background-color:white;
     border: 1px solid white;
     border-radius: 25px;
-    box-shadow: 0 5px 15px #D3D3D3;
+    box-shadow: 0 3px 15px #D3D3D3;
     text-align: center;
 }
 
@@ -17,9 +17,9 @@
     padding-top: 6%;
     padding-bottom: 3%;
     font-size: 30px;
-    font-family: arial;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    color: #45C17F;
+    color: #3FD548;
 }
 
 #calSelectDaysOfWeek {
@@ -30,8 +30,8 @@
     padding-right: 3%;
     padding-bottom: 1%;
     font-size: 24px;
-    font-family: arial;
-    color: #E0CE88;
+    font-family: 'Roboto', sans-serif;
+    color: #BCBCBC;
 }
 
 #calSelectDays {
@@ -44,9 +44,21 @@
 
 #calSelectDays > button {
     border: none;
-    font-family: arial;
+    font-family: 'Roboto', sans-serif;
     font-size: 24px;
     background-color: white;
     color: #68C678;
-    padding: 16%;
+    padding: 28%;
+    font-weight: bold;
+    outline: none;
+    transition: 0.5s;
+}
+
+#calSelectDays > button:hover {
+    background-color: ABF989;
+    border-radius: 90px;
+    font-size: 34px;
+    transition: 0.3s;
+    padding: 0;
+    color: 007F0E;
 }
