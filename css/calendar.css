@@ -1,0 +1,51 @@
+#miniCalContainer {
+    display: grid;
+    height:800px;
+
+}
+
+#miniCal {
+    margin: 10%;
+    background-color:white;
+    border: 1px solid white;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px #D3D3D3;
+    text-align: center;
+}
+
+#calSelectHeader {
+    padding-top: 6%;
+    padding-bottom: 3%;
+    font-size: 30px;
+    font-family: arial;
+    font-weight: bold;
+    color: #45C17F;
+}
+
+#calSelectDaysOfWeek {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 1%;
+    font-size: 24px;
+    font-family: arial;
+    color: #E0CE88;
+}
+
+#calSelectDays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+#calSelectDays > button {
+    border: none;
+    font-family: arial;
+    font-size: 24px;
+    background-color: white;
+    color: #68C678;
+}
