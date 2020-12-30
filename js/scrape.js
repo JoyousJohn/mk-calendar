@@ -22,6 +22,8 @@ function setDates() {
     //var date = d.getDate()
     //var month = d.getMonth() + 1 //+1 since JS counts January as 0
     //console.log("date " + date + " " + month)
+    const month = d.toLocaleString('default', { month: 'long' }).toUpperCase() + " " + d.getFullYear();
+    $("#calSelectHeader > label").text(month) //Sets month
     var firstDay = new Date(d.getFullYear(), d.getMonth(), 1)
     firstDay = firstDay.getDay() + 1 //First weekday day of month. i.e. 5 = Friday and is 1st day of month
     var lastDate = new Date(d.getFullYear(), d.getMonth()+1, 0)
