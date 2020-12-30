@@ -2,6 +2,7 @@
 <head>
     <title>Knolls Calendar</title>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/calendar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/scrape.js"></script>
@@ -12,78 +13,72 @@
         <label id="knolls" id="eagle" onclick="knollsSelected()">MORRIS KNOLLS</label>
         <label id="hills">MORRIS HILLS</label>
     </div>
-    <div id="knollsCalendar">
 
-
-
+    <div id="knollsDiv" style="display: grid; grid-template-columns: 1fr 2fr;">
+        <div id=miniCalContainer>
+            <div id=miniCal>
+                <div id=calSelectHeader>DECEMBER 2020</div>
+                <div id=calSelectDaysOfWeek>
+                    <label>S</label>
+                    <label>M</label>
+                    <label>T</label>
+                    <label>W</label>
+                    <label>T</label>
+                    <label>F</label>
+                    <label>S</label>
+                </div>
+                <div id=calSelectDays>
+                    <button id=slot1></button>
+                    <button id=slot2></button>
+                    <button id=slot3></button>
+                    <button id=slot4></button>
+                    <button id=slot5></button>
+                    <button id=slot6></button>
+                    <button id=slot7></button>
+                    <button id=slot8></button>
+                    <button id=slot9></button>
+                    <button id=slot10></button>
+                    <button id=slot11></button>
+                    <button id=slot12></button>
+                    <button id=slot13></button>
+                    <button id=slot14></button>
+                    <button id=slot15></button>
+                    <button id=slot16></button>
+                    <button id=slot17></button>
+                    <button id=slot18></button>
+                    <button id=slot19></button>
+                    <button id=slot20></button>
+                    <button id=slot21></button>
+                    <button id=slot22></button>
+                    <button id=slot23></button>
+                    <button id=slot24></button>
+                    <button id=slot25></button>
+                    <button id=slot26></button>
+                    <button id=slot27></button>
+                    <button id=slot28></button>
+                    <button id=slot29></button>
+                    <button id=slot30></button>
+                    <button id=slot31></button>
+                    <button id=slot32></button>
+                    <button id=slot33></button>
+                    <button id=slot34></button>
+                    <button id=slot35></button>
+                </div>
+            </div>
+        </div>
+        <div id=dayList style="background-color:#bbb">.</div>
     </div>
 
 
 
     <div id="tempInfo" style="white-space: pre">
-        <label>Check console for misc. information</label><br>
-        <label id="calendarTime"></label>
-        <label id="eventQuantity">Loading...</label><br>
-        <label id="event1"></label>
-        <label id="event2"></label>
-        <label id="event3"></label>
-        <label id="event4"></label>
-        <label id="event5"></label>
-        <label id="event6"></label>
-        <label id="event7"></label>
-        <label id="event8"></label>
-        <label id="event9"></label>
-        <label id="event10"></label>
-        <label id="event11"></label>
-        <label id="event12"></label>
-        <label id="event13"></label>
-        <label id="event14"></label>
-        <label id="event15"></label>
-        <label id="event16"></label>
-        <label id="event17"></label>
-        <label id="event18"></label>
-        <label id="event19"></label>
-        <label id="event20"></label>
-        <label id="event21"></label>
-        <label id="event22"></label>
-        <label id="event23"></label>
-        <label id="event24"></label>
-        <label id="event25"></label>
-        <label id="event27"></label>
-        <label id="event28"></label>
-        <label id="event29"></label>
-        <label id="event30"></label>
-        <label id="event31"></label>
-        <label id="event32"></label>
-        <label id="event33"></label>
-        <label id="event34"></label>
-        <label id="event35"></label>
-        <label id="event36"></label>
-        <label id="event37"></label>
-        <label id="event38"></label>
-        <label id="event39"></label>
-        <label id="event40"></label>
-        <label id="event41"></label>
-        <label id="event42"></label>
-        <label id="event43"></label>
-        <label id="event44"></label>
-        <label id="event45"></label>
-        <label id="event46"></label>
-        <label id="event47"></label>
-        <label id="event48"></label>
-        <label id="event49"></label>
-        <label id="event50"></label>
-        <label id="event51"></label>
-        <label id="event52"></label>
-        <label id="event53"></label>
-        <label id="event54"></label>
-        <label id="event55"></label>
-        <label id="event56"></label>
-        <label id="event57"></label>
-        <label id="event58"></label>
-        <label id="event59"></label>
-        <label id="event60"></label>
-        <label id="event61"></label>
+
     </div>
+
+
+
+    <script type="text/javascript">
+        $("#knollsDiv").hide();
+    </script>
 </body>
 </html>
