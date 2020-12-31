@@ -10,7 +10,10 @@ function knollsSelected() {
 async function scrapeKnolls() {
     //let id = "mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com"
     //let key = "AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w"
-    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=2021-01-01T00:00:00-00:00"
+    var d = new Date()
+    const month = d.getMonth()
+    console.log("month " + month)
+    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=2021-" + month + "-01T00:00:00-00:00"
     try {
         response = await axios.get(site)
     } catch (error) { console.log(error) }
