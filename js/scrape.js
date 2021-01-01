@@ -15,9 +15,9 @@ async function scrapeKnolls() {
     console.log("month " + month)
     let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=2021-" + month + "-01T00:00:00-00:00"
     try {
-        response = await axios.get(site)
+        //response = await axios.get(site)
     } catch (error) { console.log(error) }
-    console.log(response.data)
+    //console.log(response.data)
 }
 
 function setDates() {
@@ -33,7 +33,15 @@ function setDates() {
     lastDate = lastDate.getDate() //Gets final date
     var dateCount = 1
     for(var a = firstDay; dateCount <= lastDate; a++) {
-        $("#slot" + a).text(dateCount)
+        $("#slot" + a).text(dateCount) //Sets current month dates
         dateCount++
+    }
+    d.setDate(1); //Going to 1st of the month
+    d.setHours(-1); //Last hour of previous day
+    var lastDayPrevMonth = d.getDate()
+    for(var b = firstDay - 1; b > 0; b--) {
+        $("#slot" + b).text(lastDayPrevMonth); //Sets previous month dates
+        $("#slot" + b).css("color", "DBDBDB"); //Changes color since not really important...
+        lastDayPrevMonth--;
     }
 }
