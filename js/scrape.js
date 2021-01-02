@@ -20,15 +20,17 @@ async function scrapeKnolls() {
 
 function setDates(direction) { //Updates and sets the dates on the calendar during initiation or month change
     var d = date //Avoids hoisting with correct scope. Thanks https://stackoverflow.com/a/25559623/13297669!. Never mind, removed window... started working on its own? Guess it isn't necessary now...
-    d.setMonth(d.getMonth() + direction) //Sets new month. This is important not to forget!. Wow, this changes the original object?...
+    d.setMonth(d.getMonth() + direction) //Sets new month. This is important not to forget I already did this first!. Wow, this changes the original object?...
     const monthYear = d.toLocaleString('default', { month: 'long' }).toUpperCase() + " " + d.getFullYear();
     $("#calSelectHeader > label").text(monthYear) //Sets month header with year
 
     d.setDate(1) //Sets to 1st of the month
     var firstDay = d.getDay() + 1 //First weekday integer (1-7) day of month. i.e. 6 = Friday and is 1st day of month
 
-    var lastDate = new Date(d.getFullYear(), d.getMonth() + direction, 0) //Creates object of the last day of the new month. Day 0 of the next month (already set line 23, no +1) does this.
+    var lastDate = new Date(d.getFullYear(), d.getMonth() + 1, 0) //Creates object of the last day of the new month. Had to replace diretion + 1 with just + 1, took forever to realize!!! Line 23...
+
     lastDate = lastDate.getDate() //Gets final date. i.e. 30 or 31. Starts at 1, not 0, so returned is the actual day
+    console.log(lastDate)
     var dateCount = 1 //Counter for date to put in calendar slots
     for(var a = firstDay; dateCount <= lastDate; a++) {
         $("#slot" + a).text(dateCount) //Sets current month dates
@@ -42,5 +44,14 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
         $("#slot" + b).text(lastDayPrevMonth); //Sets previous month dates
         $("#slot" + b).css("color", "DBDBDB"); //Changes color since not really important...
         lastDayPrevMonth--;
+    }
+
+    //console.log(monthYear + " " + (lastDate + firstDay) + " " + lastDate + " " + firstDay)
+    console.log(lastDate)
+    dateCount = 1
+    for(var c = lastDate + firstDay; c < 36; c++) {
+        $("#slot" + c).text(dateCount); //Sets next month dates
+        $("#slot" + c).css("color", "DBDBDB"); //Changes color to gray
+        dateCount++
     }
 }
