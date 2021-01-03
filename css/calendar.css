@@ -1,11 +1,10 @@
 #miniCalContainer {
     display: grid;
     height:800px;
-
+    margin: 0 8% 0 70px;
 }
 
 #miniCal {
-    margin: 10%;
     background-color:white;
     border: 1px solid white;
     border-radius: 25px;
@@ -53,11 +52,10 @@
 #calSelectDays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 3.3vw);
     margin-left: 3%;
     margin-right: 3%;
     justify-content: center;
-    grid-gap: 5px 5px;
+    overflow: hidden;
 }
 
 #calSelectDays > button {
@@ -66,15 +64,32 @@
     background-color: white;
     color: #68C678;
     border: none;
-    font-weight: bold;
     outline: none;
     transition: 0.4s;
+    padding: 30%;
 }
-
 
 #calSelectDays > button:hover {
     background-color: ABF989;
     border-radius: 50%;
     transition: 0.3s;
     color: 007F0E;
+}
+
+
+
+
+#eventList {
+    margin: 0 70px 0 1%;
+}
+
+.eventTemplate {
+    height: 60px;
+    background-color: red;
+    background-color:white;
+    border: 1px solid white;
+    border-radius: 8px;
+    box-shadow: 0 3px 15px #D3D3D3;
+    text-align: center;
+
 }
