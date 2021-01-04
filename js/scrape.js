@@ -6,16 +6,22 @@ function knollsSelected() {
         $("#knollsDiv").fadeIn() //Shows temp labels
     }, 300);
     setDates(0)
-    scrapeKnolls() //Begins entire process
+    //scrapeKnolls(date.getMonth() + 1) //Begins entire process
 }
 
-async function scrapeKnolls() {
-    const month = date.getMonth() + 1 //Without + 1 line 16 returns 400 error
-    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=2021-" + month + "-01T00:00:00-00:00"
+async function scrapeKnolls(month, year) {
+    //const month = date.getMonth() + 1 //Without + 1 line 16 returns 400 error
+    console.log(year)
+    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=" + year + "-" + month + "-01T00:00:00-00:00&timeMax=" + year + "-" + (month + 1) + "-01T00:00:00-00:00"
     try {
         response = await axios.get(site)
     } catch (error) { console.log(error) }
-    //console.log(response.data)
+    /*for (x in response.data.items) {
+        console.log(response.data.items[x].summary)
+    }*/
+    appendKnolls(response.data.items) //.items = events
+    //console.log(response.data.items)
+
 }
 
 function setDates(direction) { //Updates and sets the dates on the calendar during initiation or month change
@@ -57,4 +63,5 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
         $("#slot" + c).css("font-weight", "normal");
         dateCount++
     }
+    scrapeKnolls(date.getMonth() + 1, date.getFullYear())
 }
