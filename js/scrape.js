@@ -30,28 +30,31 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     var lastDate = new Date(d.getFullYear(), d.getMonth() + 1, 0) //Creates object of the last day of the new month. Had to replace diretion + 1 with just + 1, took forever to realize!!! Line 23...
 
     lastDate = lastDate.getDate() //Gets final date. i.e. 30 or 31. Starts at 1, not 0, so returned is the actual day
-    console.log(lastDate)
+    //Current month dates on calendar
     var dateCount = 1 //Counter for date to put in calendar slots
     for(var a = firstDay; dateCount <= lastDate; a++) {
         $("#slot" + a).text(dateCount) //Sets current month dates
         $("#slot" + a).css("color", "68C678"); //Forgot to set colors back, lol
+        $("#slot" + a).css("font-weight", "bold");
         dateCount++ //Adds 1 to the date to put in calendar slot
     }
 
+    //Previous month dates on calendar
     var prevMonth = new Date(d.getFullYear(), d.getMonth(), 0)
     lastDayPrevMonth = prevMonth.getDate() //Gets last day of previous month
     for(var b = firstDay - 1; b > 0; b--) {
         $("#slot" + b).text(lastDayPrevMonth); //Sets previous month dates
         $("#slot" + b).css("color", "DBDBDB"); //Changes color since not really important...
+        $("#slot" + b).css("font-weight", "normal");
         lastDayPrevMonth--;
     }
 
-    //console.log(monthYear + " " + (lastDate + firstDay) + " " + lastDate + " " + firstDay)
-    console.log(lastDate)
+    //Next month dates on calendar
     dateCount = 1
     for(var c = lastDate + firstDay; c < 36; c++) {
         $("#slot" + c).text(dateCount); //Sets next month dates
         $("#slot" + c).css("color", "DBDBDB"); //Changes color to gray
+        $("#slot" + c).css("font-weight", "normal");
         dateCount++
     }
 }
