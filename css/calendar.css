@@ -1,7 +1,6 @@
 #miniCalContainer {
     display: grid;
-    height:800px;
-    margin: 0 8% 0 70px;
+    margin: 0 8% auto 70px;
 }
 
 #miniCal {
@@ -11,6 +10,7 @@
     box-shadow: 0 3px 15px #D3D3D3;
     text-align: center;
     user-select: none;
+    padding-bottom: 6%;
 }
 
 #calSelectHeader {
@@ -88,8 +88,8 @@
     background-color: red;
     background-color:white;
     border: 1px solid white;
-    border-radius: 8px;
+    border-radius: 15px;
     box-shadow: 0 3px 15px #D3D3D3;
     text-align: center;
-
+    margin-bottom: 1%;
 }
