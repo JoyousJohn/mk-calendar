@@ -11,8 +11,10 @@ function knollsSelected() {
 
 async function scrapeKnolls(month, year) {
     //const month = date.getMonth() + 1 //Without + 1 line 16 returns 400 error
-    console.log(year)
-    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=" + year + "-" + month + "-01T00:00:00-00:00&timeMax=" + year + "-" + (month + 1) + "-01T00:00:00-00:00"
+    //console.log(month + " and " + year)
+    var nextMonth = month + 1
+    if (month + 1 > 12) {nextMonth = 1} //One line, cool! :)
+    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=" + year + "-" + month + "-01T00:00:00-00:00&timeMax=" + year + "-" + nextMonth + "-01T00:00:00-00:00"
     try {
         response = await axios.get(site)
     } catch (error) { console.log(error) }
@@ -40,9 +42,9 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     var dateCount = 1 //Counter for date to put in calendar slots
     for(var a = firstDay; dateCount <= lastDate; a++) {
         $("#slot" + a).text(dateCount) //Sets current month dates
-        $("#slot" + a).css("color", "68C678"); //Forgot to set colors back, lol
-        $("#slot" + a).css("font-weight", "bold");
-        dateCount++ //Adds 1 to the date to put in calendar slot
+        $("#slot" + a).addClass("dayButton");
+        $("#slot" + a).removeClass("otherMonthButton");
+        dateCount++ //Adds 1 to the date to put in calendar slot calDaysButton
     }
 
     //Previous month dates on calendar
@@ -50,8 +52,8 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     lastDayPrevMonth = prevMonth.getDate() //Gets last day of previous month
     for(var b = firstDay - 1; b > 0; b--) {
         $("#slot" + b).text(lastDayPrevMonth); //Sets previous month dates
-        $("#slot" + b).css("color", "DBDBDB"); //Changes color since not really important...
-        $("#slot" + b).css("font-weight", "normal");
+        $("#slot" + b).addClass("otherMonthButton");
+        $("#slot" + b).removeClass("dayButton");
         lastDayPrevMonth--;
     }
 
@@ -59,8 +61,8 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     dateCount = 1
     for(var c = lastDate + firstDay; c < 36; c++) {
         $("#slot" + c).text(dateCount); //Sets next month dates
-        $("#slot" + c).css("color", "DBDBDB"); //Changes color to gray
-        $("#slot" + c).css("font-weight", "normal");
+        $("#slot" + c).addClass("otherMonthButton");
+        $("#slot" + c).removeClass("dayButton");
         dateCount++
     }
     scrapeKnolls(date.getMonth() + 1, date.getFullYear())
