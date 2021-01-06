@@ -28,7 +28,7 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     var d = date //Avoids hoisting with correct scope. Thanks https://stackoverflow.com/a/25559623/13297669!. Never mind, removed window... started working on its own? Guess it isn't necessary now...
     d.setMonth(d.getMonth() + direction) //Sets new month. This is important not to forget I already did this first!. Wow, this changes the original object?...
     const monthYear = d.toLocaleString('default', { month: 'long' }).toUpperCase() + " " + d.getFullYear();
-    $("#calSelectHeader > label").text(monthYear) //Sets month header with year
+    $("#calHeader > label").text(monthYear) //Sets month header with year
 
     d.setDate(1) //Sets to 1st of the month
     var firstDay = d.getDay() + 1 //First weekday integer (1-7) day of month. i.e. 6 = Friday and is 1st day of month
