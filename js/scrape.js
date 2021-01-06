@@ -11,10 +11,11 @@ function knollsSelected() {
 
 async function scrapeKnolls(month, year) {
     //const month = date.getMonth() + 1 //Without + 1 line 16 returns 400 error
-    //console.log(month + " and " + year)
+    console.log(month + " and " + year)
     var nextMonth = month + 1
-    if (month + 1 > 12) {nextMonth = 1} //One line, cool! :)
-    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=" + year + "-" + month + "-01T00:00:00-00:00&timeMax=" + year + "-" + nextMonth + "-01T00:00:00-00:00"
+    var nextYear = year
+    if (nextMonth == 13) {nextMonth = 1; nextYear++} //One line, cool! :)
+    let site = "https://www.googleapis.com/calendar/v3/calendars/mhrd.org_ccteiaobdj0su75og9mc2u6h4g@group.calendar.google.com/events?key=AIzaSyA3Fshq5WSPcvNe8zQTXnbCe6VUArfo13w&timeMin=" + year + "-" + month + "-01T00:00:00-00:00&timeMax=" + nextYear + "-" + nextMonth + "-01T00:00:00-00:00"
     try {
         response = await axios.get(site)
     } catch (error) { console.log(error) }
