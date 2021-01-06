@@ -1,81 +1,74 @@
 #miniCalContainer {
     display: grid;
-    margin: 0 8% auto 70px;
+    margin: 0 8% auto 0;
 }
 
 #miniCal {
     background-color:white;
     border: 1px solid white;
-    border-radius: 25px;
+    border-radius: 2vw;
     box-shadow: 0 3px 15px #D3D3D3;
-    text-align: center;
     user-select: none;
-    padding-bottom: 6%;
+    padding: 1vw 1vw 1vw 1vw;
+    text-align: center;
 }
 
-#calSelectHeader {
-    padding-top: 6%;
+#calHeader {
     padding-bottom: 3%;
-    font-size: 30px;
+    font-size: 1.56vw;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     color: #3FD548;
     user-select: none;
 }
 
-#calSelectHeader > button {
+#calHeader > button {
     border: none;
     outline: none;
     background-color: white;
-    font-size: 20px;
+    font-size: 1.56vw;
     color: #93E261;
     transition: 0.5s;
 }
 
-#calSelectHeader > button:hover {
+#calHeader > button:hover {
     color: #78B74E;
     transition: 0.3s;
 }
 
-#calSelectDaysOfWeek {
+#calDaysOfWeek {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: 1;
-    padding-left: 3%;
-    padding-right: 3%;
     padding-bottom: 1%;
-    font-size: 24px;
+    font-size: 1.25vw;
     font-family: 'Roboto', sans-serif;
     color: #777777;
 }
 
-#calSelectDays {
+#calDays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    margin-left: 3%;
-    margin-right: 3%;
-    justify-content: center;
-    overflow: hidden;
 }
 
-#calSelectDays > button {
+#calDays > button {
     font-family: 'Roboto', sans-serif;
-    font-size: 24px;
+    font-size: 1.5vw;
     background-color: white;
     color: #68C678;
     border: none;
     outline: none;
     transition: 0.4s;
-    padding: 30%;
+    height: 4vw;
+    width: 4vw;
 }
 
-#calSelectDays > button:hover {
+#calDays > button:hover {
     background-color: ABF989;
     border-radius: 50%;
     transition: 0.3s;
     color: 007F0E;
 }
-
 
 
 
