@@ -11,6 +11,7 @@
     user-select: none;
     padding: 1vw 1vw 1vw 1vw;
     text-align: center;
+    position: fixed;
 }
 
 #calHeader {
@@ -25,7 +26,7 @@
 #calHeader > button {
     border: none;
     outline: none;
-    background-color: white;
+    background-color: transparent;
     font-size: 1.56vw;
     color: #93E261;
     transition: 0.5s;
@@ -33,7 +34,9 @@
 
 #calHeader > button:hover {
     color: #78B74E;
-    transition: 0.3s;
+    transform: scale(1.6);
+    transition: transform 0.3s;
+    cursor: pointer;
 }
 
 #calDaysOfWeek {
@@ -73,6 +76,7 @@
     color: 007F0E;
     transform: scale(1.25);
     transition: transform 0.1s;
+    cursor: pointer;
 }
 
 .otherMonthButton {
@@ -84,16 +88,34 @@
 
 
 #eventList {
-    margin: 0 70px 0 1%;
+    margin-left: 4vw;
+    user-select: none;
 }
 
 .eventTemplate {
-    height: 60px;
+    padding: 2% 0 2% 2%;
     background-color: red;
     background-color:white;
     border: 1px solid white;
     border-radius: 15px;
     box-shadow: 0 3px 15px #D3D3D3;
-    text-align: center;
     margin-bottom: 1%;
+}
+
+.previewEvent {
+    display: inline;
+    color: #68C678;3FD548
+}
+
+.pEventDate {
+    font-size: 1.5vw;
+    font-family: sans-serif;
+    margin-right: 0.5%;
+    font-weight: bold;
+}
+
+.pEventName {
+    font-size: 1.5vw;
+    font-family: sans-serif;
+    color: 3FD548;
 }
