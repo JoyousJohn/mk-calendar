@@ -92,15 +92,32 @@
     user-select: none;
 }
 
-.pEventHead {
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    font-size: 1.5vw;
-    margin-bottom: 1%;
-    font-family: sans-serif;
+.eventTemplate {
+    padding: 2% 0 2% 2%;
+    background-color: red;
+    background-color:white;
+    border: 1px solid white;
     border-radius: 2vh;
     box-shadow: 0 3px 15px #D3D3D3;
-    overflow: hidden;
+    margin-bottom: 1%;
+}
+
+.previewEvent {
+    display: inline;
+    color: #68C678;3FD548
+}
+
+.pEventDate {
+    font-size: 1.5vw;
+    font-family: sans-serif;
+    margin-right: 0.5%;
+    font-weight: bold;
+}
+
+.pEventName {
+    font-size: 1.5vw;
+    font-family: sans-serif;
+    color: 3FD548;
 }
 
 .pEventLeft {
