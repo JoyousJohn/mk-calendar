@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onload="load()">
     <div class="schoolOptions">
         <label id="knolls" id="eagle" onclick="knollsSelected()">MORRIS KNOLLS</label>
         <label id="hills">MORRIS HILLS</label>
@@ -75,10 +75,11 @@
         </div>
         <div id=eventList>
             <div class=eventTemplate id=e0>
-                <div class=previewEvent id=pe0>
+                <span class=previewEvent id=pe0>
                     <span class=pEventDate id=ped0>TEMP XX</span>
                     <span class=pEventName id=pen0>Christmas Example</span>
-                </div>
+                    <label class=pEventStatus>STATUS</label>
+                </span>
             </div>
         </div>
     </div>
