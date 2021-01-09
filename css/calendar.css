@@ -103,50 +103,24 @@
 }
 
 .previewEvent {
+    color: #68C678;
     display: inline;
-    color: #68C678;3FD548
+    font-size: 1.5vw;
 }
 
 .pEventDate {
-    font-size: 1.5vw;
     font-family: sans-serif;
     margin-right: 0.5%;
     font-weight: bold;
+    font-size: 1.3vw;
 }
 
 .pEventName {
-    font-size: 1.5vw;
     font-family: sans-serif;
-    color: 3FD548;
-}
-
-.pEventLeft {
-    padding: 2% 0 2% 2%;
-    background-color:white;
-    grid-column: 1 / 3;
-    grid-row: 1;
-}
-
-.pEventRight {
-    background-color: #F0F0F0;
-    border-left-style: none;
-    grid-column: 2;
-    grid-row: 1;
-    text-align: center;
-}
-
-.pEventDate {
-    margin-right: 0.5%;
-    font-weight: bold;
-    color: #68C678;3FD548
-}
-
-.pEventName {
     color: 3FD548;
 }
 
 .pEventVirtual {
     background-color: black;
-    color: white;
-
+    height: auto;
 }
