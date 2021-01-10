@@ -5,6 +5,8 @@ var eventDate = []
 var eventName = [] //The cleaned up event name
 var realStartDate = [] //Isn't set to 1st of month if first day is last month. i.e. Jan 1 for Christmas break would be December 23rd or something
 var startDate = [] //Integer date of start time
+var startTime = [] //Start time
+var endTime = [] //End time
 
 var isVirtual = [] //Only true if zoom or virtual found in summary
 var isZoom = [] //Only true if zoom found in summary
@@ -19,6 +21,7 @@ function load() { //Might probably need to use for something later...
     $(".eExtraDates").hide()
     $(".eStartTime").hide()
     $(".eRoom").hide()
+    $(".eTimes").hide()
 }
 
 
@@ -37,6 +40,7 @@ function appendKnolls(data, currentMonthInt) {
     isCancelled = []
     isHomeWorkFree = []
     for(var i = 0; i < data.length; i++) {
+        var newElement = $(".eventTemplate").eq(0).clone().show().insertAfter(".eventTemplate:last"); //Can also shoiw after line 15
         var d
         if (data[i].start.date != undefined) {
             d = new Date(data[i].start.date)
@@ -44,6 +48,9 @@ function appendKnolls(data, currentMonthInt) {
         } else {
             d = new Date(data[i].start.dateTime)
             red = new Date(data[i].start.dateTime)
+            startTime[i] = d.toLocaleTimeString().replace(":00 ", " ")
+            $(".eTimes").eq(i + 1).text(startTime[i])
+            $(".eTimes").eq(i + 1).show()
         }
         startDate[i] = d.getDate() //Gets the start date
         //If event spans multiple days
@@ -51,20 +58,20 @@ function appendKnolls(data, currentMonthInt) {
             ed = new Date(data[i].end.date) //ed = end date
         } else {
             ed = new Date(data[i].end.dateTime)
+            endTime[i] = ed.toLocaleTimeString().replace(":00 ", " ")
+            $(".eTimes").eq(i + 1).text($(".eTimes").eq(i + 1).html() + " to " + endTime[i])
         }
         if (d.getMonth() != currentMonthInt - 1) { //Or add one to the former
             d.setDate(1)
         }
         analyzeSummary(data[i].summary, i) //Dissects name
-        var newElement = $(".eventTemplate").eq(0).clone().show().insertAfter(".eventTemplate:last"); //Can also shoiw after line 15
+
         $(".pEventName").eq(i + 1).text(eventName[i])
         $(".pEventDate").eq(i + 1).text(month + " " + d.getDate())
         if (red.getDate() != ed.getDate()) {
             if (red.getDate() + 1 != ed.getDate()) { //MLKJR, marking periods, etc. that have stupid multiple dates for some reason...
-                console.log(i)
                 var eventDates = red.toLocaleString('default', { month: 'long' });
                 eventDates += " " + ordinal_suffix_of(red.getDate()) + " to " + ed.toLocaleString('default', { month: 'long' }) + " " + ordinal_suffix_of(ed.getDate())
-                console.log("event dates " + eventDates)
                 $(".eExtraDates").eq(i + 1).text(eventDates)
                 $(".eExtraDates").eq(i + 1).show()
             }
@@ -106,25 +113,6 @@ function appendKnolls(data, currentMonthInt) {
     }
     hover() //Took a whileeee to figure this out! //Update DOM
 }
-
-function setDescription(name) {
-    var names = []
-    var descriptions = []
-
-    names[0] = "Math Club"
-    descriptions[0] = "Math Club is designed for students from all grades who like fun, mathematics, games and puzzles, and competing in mathematics. " +
-    "The members also provide peer tutoring to students in need of math help on a weekly basis. Meetings are " +
-    "held on a bi-weekly basis."
-    for (d in descriptions) {
-        if (names[d] == name) {
-            return descriptions[d]
-            break
-        }
-    }
-}
-
-
-
 
 function analyzeSummary(summary, e) {
     summary = rephraseName(summary, e)
@@ -192,13 +180,13 @@ function checkIfHomeworkFree(summary, e) {
 }
 
 function rephraseName(summary, e) {
-    var wrongName = ["Holiday", "Mtg", ", Aud", "NHS ", "GT", "APA", "BOE", "JSA", " Grad", "MS", "Rm", " Ed ", "CPI", "ASVAB", "LAX", "AHS", "MHRDEA", "Exp.", ". Aud",
-    "HSA", "CST", " hr ", " PE ", "AMC", "Spec Svcs", "TLC", "PAL", "Rock/Den", "IEP", " Aud ", "NJAC", "JHS", "Ed "]
-    var correction = ["Christmas", "Meeting", " - Auditorium", "National Honors Society ", "Gifted & Talented", "Academy of Performing Arts", "Board of Education",
+    var wrongName = ["Mtg", ", Aud", "NHS ", "GT", "APA", "BOE", "JSA", " Grad", "MS", "Rm", " Ed ", "CPI", "ASVAB", "LAX", "AHS", "MHRDEA", "Exp.", ". Aud",
+    "HSA", "CST", " hr ", " PE ", "AMC", "Spec Svcs", "TLC", "Holiday", "PAL", "Rock/Den", "IEP", " Aud ", "NJAC", "JHS", "Ed ", "MLK, ", "Math Club"]
+    var correction = ["Meeting", " - Auditorium", "National Honors Society ", "Gifted & Talented", "Academy of Performing Arts", "Board of Education",
     "Junior State of America", " Graduation", "Middle School", "Room", " Education ", "Crisis Prevention Institute", "Armed Services Vocational Aptitude Battery",
     "Lacrosse", "Applied Health Sciences", "MHRD Education Association", "Experience", "Auditorium", "Home and School Association", "Child Study Team", " Hour",
-    "Physical Education", "American Mathematics Competition", "Special Services", "Teen Leadership Council", "Police Athletic League", "Rockaway and Denville",
-    "Individualized Education Program/Plan", " Auditorium ", "NJ Athletic Conference", "Junior High School", "Education "]
+    "Physical Education", "American Mathematics Competition", "Special Services", "Teen Leadership Council", "Christmas", "Police Athletic League", "Rockaway and Denville",
+    "Individualized Education Program/Plan", " Auditorium ", "NJ Athletic Conference", "Junior High School", "Education ", "Marin Luther King ", "Math Club Meeting"]
     for (n in wrongName) {
         if(summary.includes(wrongName[n])) {
             summary = summary.replace(wrongName[n], correction[n])
@@ -210,10 +198,9 @@ function rephraseName(summary, e) {
 function hover() { //Expand when hovered upon and show info
     $(".eventTemplate").hover(function() {
         var thisElement = $(".eventInfo").eq($(this).index())
-        thisElement.show()
-
+        thisElement.slideToggle("swing")
     }, function() {
-        $(".eventInfo").eq($(this).index()).hide()
+        $(".eventInfo").eq($(this).index()).slideToggle("slow")
     });
 }
 
