@@ -102,10 +102,6 @@
     margin-bottom: 1%;
 }
 
-.eventTemplate:hover {
-    transition: 10s;
-}
-
 .previewEvent {
     color: #68C678;
     font-size: 1.5vw;
@@ -126,7 +122,7 @@
 }
 
 .pEventStatus {
-    background-color: 93DB70;
+    background-color: #93DB70;
     color: white;
     font-size: 1vw;
     margin-left: auto;
@@ -136,6 +132,7 @@
     font-family: sans-serif;
     font-style: italic;
     visibility: hidden;
+    position: relative;
 }
 
 .eventInfo {
@@ -148,6 +145,7 @@
 .eWarning {
     grid-column: 1;
     margin-bottom: 2%;
+    margin-top: 1.5%;
 }
 
 .eWarningLabel {
@@ -181,16 +179,30 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.eStartTime {
+.eTimes {
     grid-column: 1;
     color: 686868;
-    font-size: 1vw;
+    font-size: 1.25vw;
+    color: #898989;
 }
 
 .eRoom {
     grid-column: 1;
     color: 686868;
     font-size: 1vw;
+}
+
+.eDescHeading {
+    grid-row: 1;
+    grid-column: 2;
+    color: gray;
+    font-size: 1vw;
+    font-family: sans-serif;
+    border-bottom: 2px solid gray;
+    display: flex;
+    align-items: flex-end;
+    font-style: italic;
+    font-weight: bold;
 }
 
 .eDesc {
@@ -200,4 +212,6 @@
     font-family: 'Roboto', sans-serif;
     text-align: justify;
     text-justify: inter-word;
+    float: right;
+    margin-left: auto;
 }
