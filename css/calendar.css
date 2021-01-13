@@ -1,6 +1,6 @@
 #miniCalContainer {
     display: grid;
-    margin: 0 8% auto 0;
+    position: fixed;
 }
 
 #miniCal {
@@ -11,7 +11,7 @@
     user-select: none;
     padding: 1vw 1vw 1vw 1vw;
     text-align: center;
-    position: fixed;
+
 }
 
 #calHeader {
@@ -86,10 +86,59 @@
     font-size: 1.5vw;
 }
 
+#optionsContainer {
+    display: flex;
+    margin-top: 5%;
+}
+
+#optionsContainer > div {
+    border: 1px solid white;
+    width: 50%;
+    display: inline-flex;
+    justify-content: space-around;
+    border-radius: 2vw;
+    box-shadow: 0 3px 15px #D3D3D3;
+    padding: 0.5%;
+}
+
+#optionsContainer > div > button {
+    font-size: 1.25vw;
+    border: none;
+    border-radius: 4vw;
+    width: 50%;
+    padding: 5%;
+    outline: none;
+    cursor: pointer;
+}
+
+#hoverSelect {
+}
+
+#clickSelect {
+}
+
+#selectTheme {
+}
+
+.optionUnselected {
+    color: 565656;
+    background-color: white;
+    transition: 1s;
+}
+
+.optionSelected {
+    color: 00AF60;
+    background-color: #93DB70;
+    transition: .25s;
+}
+
+
+
 
 #eventList {
     margin-left: 4vw;
     user-select: none;
+    grid-column: 2;
 }
 
 .eventTemplate {
@@ -198,7 +247,7 @@
     color: gray;
     font-size: 1vw;
     font-family: sans-serif;
-    border-bottom: 2px solid gray;
+    border-bottom: .3vh solid gray;
     display: flex;
     align-items: flex-end;
     font-style: italic;
