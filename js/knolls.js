@@ -22,6 +22,11 @@ function load() { //Might probably need to use for something later...
     $(".eStartTime").hide()
     $(".eRoom").hide()
     $(".eTimes").hide()
+
+    $("#clickSelect").addClass("optionSelected")
+    $("#hoverSelect").addClass("optionUnselected")
+    $("#lightSelect").addClass("optionSelected")
+    $("#darkSelect").addClass("optionUnselected")
 }
 
 
@@ -193,6 +198,15 @@ function rephraseName(summary, e) {
         }
     }
     return summary
+}
+
+function toggleOption(type) {
+    if (type == "mode") {
+        $("#hoverSelect, #clickSelect").toggleClass("optionUnselected optionSelected")
+    } else {
+        $("#lightSelect, #darkSelect").toggleClass("optionUnselected optionSelected")
+    }
+
 }
 
 function hover() { //Expand when hovered upon and show info

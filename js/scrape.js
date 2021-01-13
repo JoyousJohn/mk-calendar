@@ -83,3 +83,7 @@ function ordinal_suffix_of(i) { //Thanks https://stackoverflow.com/questions/136
     }
     return i + "th";
 }
+
+/*function removeMilliseconds(time) {
+    return time
+}*/
