@@ -20,10 +20,10 @@ function setDescription(name) {
     names[6] = "End of Marking Period"
     descriptions[6] = "The marking period is ending on this date."
 
-    for (d in descriptions) {
+    /*for (d in descriptions) {
         if (name.includes(names[d])) {
             return descriptions[d]
             break
         }
-    }
+    }*/
 }

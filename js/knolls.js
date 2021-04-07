@@ -1,18 +1,17 @@
-var eventRoom = []
-var eventStart = []
-var eventDate = []
-
 var eventName = [] //The cleaned up event name
 var realStartDate = [] //Isn't set to 1st of month if first day is last month. i.e. Jan 1 for Christmas break would be December 23rd or something
 var startDate = [] //Integer date of start time
 var startTime = [] //Start time
 var endTime = [] //End time
+var rooms = [] //Rooms
 
 var isVirtual = [] //Only true if zoom or virtual found in summary
 var isZoom = [] //Only true if zoom found in summary
 var isClosed = [] //If no school
 var isCancelled = [] //If event canceled
 var isHomeWorkFree = [] //If is a homework free weekend
+
+var selectMode = "click"
 
 function load() { //Might probably need to use for something later...
     //$(".pEventVirtual").hide()
@@ -31,7 +30,7 @@ function load() { //Might probably need to use for something later...
 
 
 function appendKnolls(data, currentMonthInt) {
-    console.log(data)
+    //console.log(data)
     var tempDate = new Date(2020, currentMonthInt - 1)
     const month = tempDate.toLocaleString('default', { month: 'short' }).toUpperCase();
     $(".eventTemplate:not(:first)").remove(); //Clear previous events from DOM, if there are any
@@ -54,8 +53,7 @@ function appendKnolls(data, currentMonthInt) {
             d = new Date(data[i].start.dateTime)
             red = new Date(data[i].start.dateTime)
             startTime[i] = d.toLocaleTimeString().replace(":00 ", " ")
-            $(".eTimes").eq(i + 1).text(startTime[i])
-            $(".eTimes").eq(i + 1).show()
+            $(".eTimes").eq(i + 1).text(startTime[i]).show()
         }
         startDate[i] = d.getDate() //Gets the start date
         //If event spans multiple days
@@ -69,7 +67,9 @@ function appendKnolls(data, currentMonthInt) {
         if (d.getMonth() != currentMonthInt - 1) { //Or add one to the former
             d.setDate(1)
         }
+
         analyzeSummary(data[i].summary, i) //Dissects name
+        $(".eRoom").eq(i + 1).text(rooms[i]).show()
 
         $(".pEventName").eq(i + 1).text(eventName[i])
         $(".pEventDate").eq(i + 1).text(month + " " + d.getDate())
@@ -125,6 +125,8 @@ function analyzeSummary(summary, e) {
     summary = checkIfCancelled(summary, e)
     summary = checkIfSchoolClosed(summary, e)
     summary = checkIfHomeworkFree(summary, e)
+    rooms[e] = ""
+    summary = getRooms(summary, e)
     eventName[e] = summary
 }
 
@@ -200,9 +202,29 @@ function rephraseName(summary, e) {
     return summary
 }
 
+function getRooms(summary, e) {
+    if(summary.includes(" - Auditorium")) {
+        summary = summary.replace(" - Auditorium", "")
+        rooms[e] += "Auditorium"
+    }
+    return summary
+}
+
+
+
+
+
+
 function toggleOption(type) {
     if (type == "mode") {
         $("#hoverSelect, #clickSelect").toggleClass("optionUnselected optionSelected")
+        if (selectMode == "click") {
+            selectMode = "hover";
+        } else {
+            selectMode = "click";
+        }
+
+        hover()
     } else {
         $("#lightSelect, #darkSelect").toggleClass("optionUnselected optionSelected")
     }
@@ -210,12 +232,16 @@ function toggleOption(type) {
 }
 
 function hover() { //Expand when hovered upon and show info
-    $(".eventTemplate").hover(function() {
-        var thisElement = $(".eventInfo").eq($(this).index())
-        thisElement.slideToggle("swing")
-    }, function() {
-        $(".eventInfo").eq($(this).index()).slideToggle("slow")
-    });
+        if (selectMode == "hover") {
+            $(".eventTemplate").hover(function() {
+                var thisElement = $(".eventInfo").eq($(this).index())
+                thisElement.slideToggle("swing")
+            }, function() {
+                $(".eventInfo").eq($(this).index()).slideToggle("slow")
+            });
+        } else {
+            $(".eventTemplate").unbind('mouseenter mouseleave')
+        }
 }
 
 //Left and right arrow keys to change months
