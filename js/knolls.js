@@ -188,12 +188,14 @@ function checkIfHomeworkFree(summary, e) {
 
 function rephraseName(summary, e) {
     var wrongName = ["Mtg", ", Aud", "NHS ", "GT", "APA", "BOE", "JSA", " Grad", "MS", "Rm", " Ed ", "CPI", "ASVAB", "LAX", "AHS", "MHRDEA", "Exp.", ". Aud",
-    "HSA", "CST", " hr ", " PE ", "AMC", "Spec Svcs", "TLC", "Holiday", "PAL", "Rock/Den", "IEP", " Aud ", "NJAC", "JHS", "Ed ", "MLK, ", "Math Club"]
+    "HSA", "CST", " hr ", " PE ", "AMC", "Spec Svcs", "TLC", "Holiday", "PAL", "Rock/Den", "IEP", " Aud ", "NJAC", "JHS", "Ed ", "MLK, ", "Math Club", "Lang",
+    "Proj", "Tshirt", "Distr", ", Musical"]
     var correction = ["Meeting", " - Auditorium", "National Honors Society ", "Gifted & Talented", "Academy of Performing Arts", "Board of Education",
     "Junior State of America", " Graduation", "Middle School", "Room", " Education ", "Crisis Prevention Institute", "Armed Services Vocational Aptitude Battery",
     "Lacrosse", "Applied Health Sciences", "MHRD Education Association", "Experience", "Auditorium", "Home and School Association", "Child Study Team", " Hour",
     "Physical Education", "American Mathematics Competition", "Special Services", "Teen Leadership Council", "Christmas", "Police Athletic League", "Rockaway and Denville",
-    "Individualized Education Program/Plan", " Auditorium ", "NJ Athletic Conference", "Junior High School", "Education ", "Marin Luther King ", "Math Club Meeting"]
+    "Individualized Education Program/Plan", " Auditorium ", "NJ Athletic Conference", "Junior High School", "Education ", "Marin Luther King ", "Math Club Meeting",
+    "Language", "Project", "T-shirt", "Distribution", " (Musical)"]
     for (n in wrongName) {
         if(summary.includes(wrongName[n])) {
             summary = summary.replace(wrongName[n], correction[n])
@@ -206,6 +208,22 @@ function getRooms(summary, e) {
     if(summary.includes(" - Auditorium")) {
         summary = summary.replace(" - Auditorium", "")
         rooms[e] += "Auditorium"
+    }
+    if(summary.includes(", aud")) {
+        summary = summary.replace(", aud", "")
+        rooms[e] += "Auditorium"
+    }
+    if(summary.includes(" AUD.")) {
+        summary = summary.replace(" AUD.", "")
+        rooms[e] += "Auditorium"
+    }
+    if(summary.includes(", Library")) {
+        summary = summary.replace(", Library", "")
+        rooms[e] += "Library"
+    }
+    if(summary.includes(", Dance Studio")) {
+        summary = summary.replace(", Dance Studio", "")
+        rooms[e] += "Dance Studio"
     }
     return summary
 }
