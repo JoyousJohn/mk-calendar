@@ -16,7 +16,7 @@
 
 #calHeader {
     padding-bottom: 3%;
-    font-size: 1.56vw;
+    font-size: 1.4vw;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     color: #3FD548;
@@ -27,7 +27,7 @@
     border: none;
     outline: none;
     background-color: transparent;
-    font-size: 1.56vw;
+    font-size: 1.4vw;
     color: #93E261;
     transition: 0.5s;
 }
@@ -42,9 +42,8 @@
 #calDaysOfWeek {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 1;
     padding-bottom: 1%;
-    font-size: 1.25vw;
+    font-size: 1.1vw;
     font-family: 'Roboto', sans-serif;
     color: #777777;
 }
@@ -59,31 +58,28 @@
     border: none;
     outline: none;
     transition: 0.4s;
-    height: 4vw;
-    width: 4vw;
+    height: 2.8vw;
+    width: 2.8vw;
     border-radius: 50%;
 }
 
 .dayButton {
     color: #68C678;
-    font-weight: bold;
     background-color: white;
-    font-size: 1.5vw;
+    font-size: 1.3vw;
 }
 
 .dayButton:hover {
     background-color: ABF989;
     color: 007F0E;
-    transform: scale(1.25);
     transition: transform 0.1s;
     cursor: pointer;
 }
 
 .otherMonthButton {
-    font-weight: lighter;
     color: DBDBDB;
     background-color: white;
-    font-size: 1.5vw;
+    font-size: 1.3vw;
 }
 
 #optionsContainer {
@@ -142,18 +138,18 @@
 }
 
 .eventTemplate {
-    padding: 1% 1% 1% 2%;
+    padding: .3% 1% .3% 2%;
     background-color: red;
     background-color: white;
     border: 1px solid white;
-    border-radius: 2vh;
+    border-radius: 1.5vh;
     box-shadow: 0 3px 15px #D3D3D3;
     margin-bottom: 1%;
 }
 
 .previewEvent {
     color: #68C678;
-    font-size: 1.5vw;
+    font-size: 1.3vw;
     display: flex;
     align-items: center;
 }
@@ -162,7 +158,7 @@
     font-family: sans-serif;
     margin-right: 0.5%;
     font-weight: bold;
-    font-size: 1.3vw;
+    font-size: 1.1vw;
 }
 
 .pEventName {
