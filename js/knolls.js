@@ -24,8 +24,7 @@ function load() { //Might probably need to use for something later...
 
     $("#clickSelect").addClass("optionSelected")
     $("#hoverSelect").addClass("optionUnselected")
-    $("#lightSelect").addClass("optionSelected")
-    $("#darkSelect").addClass("optionUnselected")
+    //$("#themeSelect").addClass("themeOption")
 }
 
 
@@ -244,9 +243,13 @@ function toggleOption(type) {
 
         hover()
     } else {
-        $("#lightSelect, #darkSelect").toggleClass("optionUnselected optionSelected")
+        $("body").toggleClass("bodyDark")
+        $("#miniCal").toggleClass("miniCal-dark")
+        $("#themeDiv").toggleClass("themeDiv-dark")
+        $("#themeButton").toggleClass("themeButton-dark")
+        $("#selectDiv").toggleClass("selectDiv-dark")
+        $("#selectButton").toggleClass("selectButton-dark")
     }
-
 }
 
 function hover() { //Expand when hovered upon and show info
