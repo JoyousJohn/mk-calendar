@@ -12,6 +12,7 @@ var isCancelled = [] //If event canceled
 var isHomeWorkFree = [] //If is a homework free weekend
 
 var selectMode = "click"
+var theme = "light"
 
 function load() { //Might probably need to use for something later...
     //$(".pEventVirtual").hide()
@@ -43,7 +44,7 @@ function appendKnolls(data, currentMonthInt) {
     isCancelled = []
     isHomeWorkFree = []
     for(var i = 0; i < data.length; i++) {
-        var newElement = $(".eventTemplate").eq(0).clone().show().insertAfter(".eventTemplate:last"); //Can also shoiw after line 15
+        var newElement = $(".eventTemplate").eq(0).clone().show().insertAfter(".eventTemplate:last"); //Can also show after line 15 //4/19 what used to be line 15 lol
         var d
         if (data[i].start.date != undefined) {
             d = new Date(data[i].start.date)
@@ -240,15 +241,38 @@ function toggleOption(type) {
         } else {
             selectMode = "click";
         }
-
         hover()
-    } else {
+    } else { //Chaning light/bodyDark
+        if (theme == "light") {
+            theme = "dark";
+        } else {
+            theme = "light";
+        }
+        setDates(0);
+
         $("body").toggleClass("bodyDark")
         $("#miniCal").toggleClass("miniCal-dark")
+        $("#calHeader").toggleClass("calHeader-dark")
+        $("#calHeader button").toggleClass("calHeaderArrow-dark")
+        $("#calDaysOfWeek").toggleClass("calDaysOfWeek-dark")
+
         $("#themeDiv").toggleClass("themeDiv-dark")
         $("#themeButton").toggleClass("themeButton-dark")
         $("#selectDiv").toggleClass("selectDiv-dark")
         $("#selectButton").toggleClass("selectButton-dark")
+
+        $(".eventTemplate").toggleClass("eventTemplate-dark")
+        $(".previewEvent").toggleClass("previewEvent-dark")
+        $(".pEventName").toggleClass("pEventName-dark")
+        $(".pEventStatus").toggleClass("pEventStatus-dark")
+
+        if (theme == "dark") {
+            console.log("true dark");
+            $(".eventTemplate").css("background-color", "red")
+            //$(".eventTemplate").css("border-color", "848484")
+        } else {
+
+        }
     }
 }
 

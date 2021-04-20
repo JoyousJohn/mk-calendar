@@ -43,8 +43,12 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     var dateCount = 1 //Counter for date to put in calendar slots
     for(var a = firstDay; dateCount <= lastDate; a++) {
         $("#slot" + a).text(dateCount) //Sets current month dates
-        $("#slot" + a).addClass("dayButton");
-        $("#slot" + a).removeClass("otherMonthButton");
+        $("#slot" + a).removeClass()
+        if (theme == "light") {
+            $("#slot" + a).addClass("dayButton-light");
+        } else {
+            $("#slot" + a).addClass("dayButton-dark");
+        }
         dateCount++ //Adds 1 to the date to put in calendar slot calDaysButton
     }
 
@@ -53,8 +57,12 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     lastDayPrevMonth = prevMonth.getDate() //Gets last day of previous month
     for(var b = firstDay - 1; b > 0; b--) {
         $("#slot" + b).text(lastDayPrevMonth); //Sets previous month dates
-        $("#slot" + b).addClass("otherMonthButton");
-        $("#slot" + b).removeClass("dayButton");
+        $("#slot" + b).removeClass();
+        if (theme == "light") {
+            $("#slot" + b).addClass("otherMonthButton-light");
+        } else {
+            $("#slot" + b).addClass("otherMonthButton-dark");
+        }
         lastDayPrevMonth--;
     }
 
@@ -62,8 +70,12 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
     dateCount = 1
     for(var c = lastDate + firstDay; c < 36; c++) {
         $("#slot" + c).text(dateCount); //Sets next month dates
-        $("#slot" + c).addClass("otherMonthButton");
-        $("#slot" + c).removeClass("dayButton");
+        $("#slot" + c).removeClass();
+        if (theme == "light") {
+            $("#slot" + c).addClass("otherMonthButton-light");
+        } else {
+            $("#slot" + c).addClass("otherMonthButton-dark");
+        }
         dateCount++
     }
     scrapeKnolls(date.getMonth() + 1, date.getFullYear())
