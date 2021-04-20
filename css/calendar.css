@@ -4,20 +4,24 @@
 }
 
 #miniCal {
-    border: 1px solid white;
-    border-radius: 2vw;
-    box-shadow: 0 3px 15px #D3D3D3;
     user-select: none;
     padding: 1vw 1vw 1vw 1vw;
     text-align: center;
+    transition: 1s;
 }
 
 .miniCal-light {
+    border-radius: 2vw;
     background-color: white;
+    box-shadow: 0 3px 15px #D3D3D3;
+    border: 1px solid white;
 }
 
 .miniCal-dark {
+    border-radius: 1vw;
     background-color: #525252;
+    box-shadow: none;
+    border: 1px solid #848484;
 }
 
 #calHeader {
@@ -25,8 +29,16 @@
     font-size: 1.4vw;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    color: #3FD548;
     user-select: none;
+    transition: 1s;
+}
+
+.calHeader-light {
+    color: #3FD548;
+}
+
+.calHeader-dark {
+    color: white;
 }
 
 #calHeader > button {
@@ -34,15 +46,29 @@
     outline: none;
     background-color: transparent;
     font-size: 1.4vw;
-    color: #93E261;
     transition: 0.5s;
 }
 
+.calHeaderArrow-light {
+    color: #93E261;
+}
+
+.calHeaderArrow-dark {
+    color: white;
+}
+
 #calHeader > button:hover {
-    color: #78B74E;
     transform: scale(1.6);
-    transition: transform 0.3s;
+    transition: .3s;
     cursor: pointer;
+}
+
+.calHeaderArrow-light:hover {
+    color: #78B74E;
+}
+
+.calHeaderArrow-dark:hover {
+    color: BCBCBC;
 }
 
 #calDaysOfWeek {
@@ -51,7 +77,14 @@
     padding-bottom: 1%;
     font-size: 1.1vw;
     font-family: 'Roboto', sans-serif;
+}
+
+.calDaysOfWeek-light {
     color: #777777;
+}
+
+.calDaysOfWeek-dark {
+    color: #C6FFCD;
 }
 
 #calDays {
@@ -66,12 +99,17 @@
     transition: 0.4s;
     height: 2.8vw;
     width: 2.8vw;
-    border-radius: 50%;
+    border-radius: 25%;
+    background: none;
 }
 
-.dayButton {
+.dayButton-light {
     color: #68C678;
-    background-color: white;
+    font-size: 1.3vw;
+}
+
+.dayButton-dark {
+    color: white;
     font-size: 1.3vw;
 }
 
@@ -82,23 +120,29 @@
     cursor: pointer;
 }
 
-.otherMonthButton {
+.otherMonthButton-light {
     color: DBDBDB;
+    background-color: white;
+    font-size: 1.3vw;
+}
+
+.otherMonthButton-dark {
+    color: ADADAD;
     background-color: white;
     font-size: 1.3vw;
 }
 
 #optionsContainer {
     display: flex;
-    margin-top: 5%;
+    margin-top: 2.5%;
 }
 
 #optionsContainer > div {
     width: 50%;
     display: inline-flex;
     justify-content: space-around;
-    border-radius: .6vw;
     padding: 0.5%;
+    transition: 1s;
 }
 
 #optionsContainer > div > button {
@@ -109,16 +153,20 @@
     outline: none;
     cursor: pointer;
     background-color: transparent;
+    user-select: none;
+    transition: 1s;
 }
 
 .selectDiv-light {
     box-shadow: 0 3px 15px #D3D3D3;
+    border-radius: .8vw;
 }
 
 .selectDiv-dark {
     box-shadow: none;
     background-color: #525252;
     border: 1px solid #848484;
+    border-radius: .6vw;
 }
 
 .selectButton-dark {
@@ -127,12 +175,14 @@
 
 .themeDiv-light {
     box-shadow: 0 3px 15px #D3D3D3;
+    border-radius: .8vw;
 }
 
 .themeDiv-dark {
     box-shadow: none;
     background-color: #525252;
     border: 1px solid #848484;
+    border-radius: .6vw;
 }
 
 .themeButton-dark {
@@ -151,7 +201,6 @@
 
 .eventTemplate {
     padding: .2% 1% .2% 2%;
-    background-color: red;
     background-color: white;
     border: 1px solid white;
     border-radius: 1.75vh;
@@ -159,11 +208,21 @@
     margin-bottom: 1%;
 }
 
+.eventTemplate-dark {
+    background-color: #525252;
+    box-shadow: none;
+    border: 1px solid #848484;
+}
+
 .previewEvent {
     color: #68C678;
     font-size: 1.3vw;
     display: flex;
     align-items: center;
+}
+
+.previewEvent-dark {
+    color: white;
 }
 
 .pEventDate {
@@ -178,6 +237,10 @@
     color: 3FD548;
 }
 
+.pEventName-dark {
+    color: ADADAD;
+}
+
 .pEventStatus {
     color: 696969;
     font-size: 1vw;
@@ -188,6 +251,10 @@
     font-family: sans-serif;
     visibility: hidden;
     position: relative;
+}
+
+.pEventStatus-dark {
+    color: C6FFCD;
 }
 
 .eventInfo {
