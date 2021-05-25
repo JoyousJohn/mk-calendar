@@ -78,7 +78,9 @@ function setDates(direction) { //Updates and sets the dates on the calendar duri
         }
         dateCount++
     }
-    scrapeKnolls(date.getMonth() + 1, date.getFullYear())
+    //if (theme == "light") {
+        scrapeKnolls(date.getMonth() + 1, date.getFullYear())
+    //}
 }
 
 function ordinal_suffix_of(i) { //Thanks https://stackoverflow.com/questions/13627308/add-st-nd-rd-and-th-ordinal-suffix-to-a-number, I was lazy!

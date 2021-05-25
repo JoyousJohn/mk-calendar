@@ -28,7 +28,6 @@ function load() { //Might probably need to use for something later...
     //$("#themeSelect").addClass("themeOption")
 }
 
-
 function appendKnolls(data, currentMonthInt) {
     //console.log(data)
     var tempDate = new Date(2020, currentMonthInt - 1)
@@ -82,9 +81,21 @@ function appendKnolls(data, currentMonthInt) {
             }
         }
         $(".eDesc").eq(i + 1).text(setDescription(eventName[i]))
+        setEventTemplateColors(i)
+    }
+    hover() //Took a whileeee to figure this out! //Update DOM
+}
+
+function setEventTemplateColors(i) {
+    if (theme == "dark") {
+        //$(".eventTemplate").removeClass("eventTemplate-dark")
+        //$(".eventTemplate").addClass("eventTemplate")
+        $(".eventTemplate").addClass("eventTemplate-dark")
+    } else { //Theme is light
+        $(".eventTemplate").removeClass("eventTemplate-dark")
         if (isVirtual[i] == true) {
             $(".pEventStatus").eq(i + 1).css("visibility", "visible")
-            $(".eventTemplate").eq(i + 1).css("background-color", "FFFBF7")
+            $(".eventTemplate").eq(i + 1).addClass("eventTemplate-virtual")
             $(".eventTemplate").eq(i + 1).css("border-color", "FFFBF7")
             $(".pEventStatus").eq(i + 1).text("VIRTUAL")
             $(".eWarning").eq(i + 1).show()
@@ -101,7 +112,6 @@ function appendKnolls(data, currentMonthInt) {
             $(".eWarning").eq(i + 1).show()
             $(".eWarningLabel").eq(i + 1).text("School is not in session this day")
         } if (isCancelled[i] == true) {
-            console.log("yuppers")
             $(".pEventStatus").eq(i + 1).css("visibility", "visible")
             $(".eventTemplate").eq(i + 1).css("background-color", "FFF9DD")
             $(".eventTemplate").eq(i + 1).css("border-color", "FFF9DD")
@@ -116,7 +126,7 @@ function appendKnolls(data, currentMonthInt) {
             $(".eWarning").eq(i + 1).css("grid-column", "1 / 3")
         }
     }
-    hover() //Took a whileeee to figure this out! //Update DOM
+
 }
 
 function analyzeSummary(summary, e) {
@@ -230,9 +240,6 @@ function getRooms(summary, e) {
 
 
 
-
-
-
 function toggleOption(type) {
     if (type == "mode") {
         $("#hoverSelect, #clickSelect").toggleClass("optionUnselected optionSelected")
@@ -250,28 +257,30 @@ function toggleOption(type) {
         }
         setDates(0);
 
+        //Body and small calendar
         $("body").toggleClass("bodyDark")
         $("#miniCal").toggleClass("miniCal-dark")
         $("#calHeader").toggleClass("calHeader-dark")
         $("#calHeader button").toggleClass("calHeaderArrow-dark")
         $("#calDaysOfWeek").toggleClass("calDaysOfWeek-dark")
 
+        //Buttons under calendar
         $("#themeDiv").toggleClass("themeDiv-dark")
         $("#themeButton").toggleClass("themeButton-dark")
         $("#selectDiv").toggleClass("selectDiv-dark")
         $("#selectButton").toggleClass("selectButton-dark")
-
-        $(".eventTemplate").toggleClass("eventTemplate-dark")
+          //Events list
+        //$(".eventTemplate").toggleClass("eventTemplate-dark")
         $(".previewEvent").toggleClass("previewEvent-dark")
         $(".pEventName").toggleClass("pEventName-dark")
         $(".pEventStatus").toggleClass("pEventStatus-dark")
 
         if (theme == "dark") {
             console.log("true dark");
-            $(".eventTemplate").css("background-color", "red")
+            //$(".eventTemplate").css("background-color", "#525252")
             //$(".eventTemplate").css("border-color", "848484")
         } else {
-
+            //$(".eventTemplate").css("background-color")
         }
     }
 }
