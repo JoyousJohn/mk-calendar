@@ -206,14 +206,13 @@
     border-radius: 1.75vh;
     box-shadow: 0 3px 15px #D3D3D3;
     margin-bottom: 1%;
-    transition: 1s;
+    transition: 0.5s;
 }
 
 .eventTemplate-dark {
     background-color: #525252;
     box-shadow: none;
     border: 1px solid #848484;
-    transition: 1s;
 }
 
 .eventTemplate-virtual {
@@ -225,6 +224,7 @@
     font-size: 1.3vw;
     display: flex;
     align-items: center;
+    transition: 1s;
 }
 
 .previewEvent-dark {
@@ -236,11 +236,17 @@
     margin-right: 0.5%;
     font-weight: bold;
     font-size: 1.1vw;
+    transition: 1s;
+}
+
+.pEventDate-dark {
+    color: white;
 }
 
 .pEventName {
     font-family: 'Roboto', sans-serif;
     color: 3FD548;
+    transition: 0.8s;
 }
 
 .pEventName-dark {
@@ -255,12 +261,9 @@
     padding: 10px 1% 10px 2%;
     border-left: 0.3vh solid #808080;
     font-family: sans-serif;
-    visibility: hidden;
+    opacity: 0;
     position: relative;
-}
-
-.pEventStatus-dark {
-    color: C6FFCD;
+    transition: 1s;
 }
 
 .eventInfo {
