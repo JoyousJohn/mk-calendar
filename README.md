@@ -3,7 +3,7 @@ The Morris Knolls calendar with a better UI &amp; UX.
 
 Changelog:
 
-V0.0.1 - 5/29/2021
+V0.0.1: 5/29/2021
 - Added readme and changelog
 - Updated dark theme
 - Added live streaming status
