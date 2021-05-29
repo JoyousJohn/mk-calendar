@@ -1,4 +1,4 @@
-# mk-calendar
+# Morris Knolls Calendar
 The Morris Knolls calendar with a better UI and UX, featuring searching and filtering.
 
 Changelog:
