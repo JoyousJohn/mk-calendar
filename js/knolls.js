@@ -8,6 +8,7 @@ var rooms = [] //Rooms
 var isVirtual = [] //Only true if zoom or virtual found in summary
 var isZoom = [] //Only true if zoom found in summary
 var isClosed = [] //If no school
+isStreamed = [] //If live streamed
 var isCancelled = [] //If event canceled
 var isHomeWorkFree = [] //If is a homework free weekend
 
@@ -39,6 +40,7 @@ function appendKnolls(data, currentMonthInt) {
     startDate = []
     isVirtual = []
     isZoom = []
+    isStreamed = []
     isClosed = [] //If no school
     isCancelled = []
     isHomeWorkFree = []
@@ -81,57 +83,75 @@ function appendKnolls(data, currentMonthInt) {
             }
         }
         $(".eDesc").eq(i + 1).text(setDescription(eventName[i]))
-        setEventTemplateColors(i)
+
+        //$(".eventTemplate").eq(1).addClass("eventTemplate-dark")
+    }
+    if (theme == "dark") { //Have to place these below bc elments are fully removed when theme switch unlike calendar elements, etc.
+        $(".eventTemplate").addClass("eventTemplate-dark")
+        $(".pEventDate").addClass("pEventDate-dark")
+        $(".pEventName").addClass("pEventName-dark")
+        $(".pEventStatus").css("color", "C6FFCD") //Avoiding dark class because makes everything visible
+    } else { //New theme is light
+        $(".eventTemplate").removeClass("eventTemplate-dark")
+        $(".pEventDate").removeClass("pEventDate-dark")
+        $(".pEventName").removeClass("pEventName-dark")
+        $(".pEventStatus").css("color", "696969")
+        for (var i = 0; i < $(".eventTemplate").length; i++) {
+            setEventTemplateColors(i)
+        }
+    }
+    for (var i = 0; i < $(".eventTemplate").length; i++) {
+        setEventStatus(i) //If event is special make status visible
     }
     hover() //Took a whileeee to figure this out! //Update DOM
 }
 
 function setEventTemplateColors(i) {
-    if (theme == "dark") {
-        //$(".eventTemplate").removeClass("eventTemplate-dark")
-        //$(".eventTemplate").addClass("eventTemplate")
-        $(".eventTemplate").addClass("eventTemplate-dark")
-    } else { //Theme is light
-        $(".eventTemplate").removeClass("eventTemplate-dark")
-        if (isVirtual[i] == true) {
-            $(".pEventStatus").eq(i + 1).css("visibility", "visible")
-            $(".eventTemplate").eq(i + 1).addClass("eventTemplate-virtual")
-            $(".eventTemplate").eq(i + 1).css("border-color", "FFFBF7")
-            $(".pEventStatus").eq(i + 1).text("VIRTUAL")
-            $(".eWarning").eq(i + 1).show()
-            $(".eWarningLabel").eq(i + 1).text("This event is virtual")
-            if (isZoom[i] == true) {
-                $(".pEventStatus").eq(i + 1).text("ZOOM")
-                $(".eWarningLabel").eq(i + 1).text("This event is virtual via Zoom")
-            }
-        } if (isClosed[i] == true) {
-            $(".pEventStatus").eq(i + 1).css("visibility", "visible")
-            $(".eventTemplate").eq(i + 1).css("background-color", "F0F8FF")
-            $(".eventTemplate").eq(i + 1).css("border-color", "F0F8FF")
-            $(".pEventStatus").eq(i + 1).text("SCHOOL CLOSED")
-            $(".eWarning").eq(i + 1).show()
-            $(".eWarningLabel").eq(i + 1).text("School is not in session this day")
-        } if (isCancelled[i] == true) {
-            $(".pEventStatus").eq(i + 1).css("visibility", "visible")
-            $(".eventTemplate").eq(i + 1).css("background-color", "FFF9DD")
-            $(".eventTemplate").eq(i + 1).css("border-color", "FFF9DD")
-            $(".pEventStatus").eq(i + 1).text("CANCELLED")
-            $(".eWarning").eq(i + 1).show()
-            $(".eWarningLabel").eq(i + 1).text("This event has been cancelled")
-        } if (isHomeWorkFree[i] == true) {
-            $(".eventTemplate").eq(i + 1).css("background-color", "FFF9DD")
-            $(".eventTemplate").eq(i + 1).css("border-color", "FFF9DD")
-            $(".eWarning").eq(i + 1).show()
-            $(".eWarningLabel").eq(i + 1).text("Teachers are not allowed to give homework over this weekend nor have due dates Monday and/or Tuesday")
-            $(".eWarning").eq(i + 1).css("grid-column", "1 / 3")
-        }
+    if (isVirtual[i] == true) {
+        $(".eventTemplate").eq(i + 1).addClass("eventTemplate-virtual")
+    } if (isClosed[i] == true) {
+        $(".eventTemplate").eq(i + 1).css("background-color", "F0F8FF")
+    } if (isCancelled[i] == true) {
+        $(".eventTemplate").eq(i + 1).css("background-color", "FFF9DD")
+    } if (isHomeWorkFree[i] == true) {
+        $(".eventTemplate").eq(i + 1).css("background-color", "FFF9DD")
     }
+}
 
+function setEventStatus(i) {
+    if (isVirtual[i] == true) {
+        $(".pEventStatus").eq(i + 1).css("opacity", "1")
+        $(".pEventStatus").eq(i + 1).text("VIRTUAL")
+        $(".eWarning").eq(i + 1).show()
+        $(".eWarningLabel").eq(i + 1).text("This event is virtual")
+        if (isZoom[i] == true) {
+            $(".pEventStatus").eq(i + 1).text("ZOOM")
+            $(".eWarningLabel").eq(i + 1).text("This event is virtual via Zoom")
+        }
+    } else if (isClosed[i] == true) {
+        $(".pEventStatus").eq(i + 1).css("opacity", "1")
+        $(".pEventStatus").eq(i + 1).text("CLOSURE")
+        $(".eWarning").eq(i + 1).show()
+        $(".eWarningLabel").eq(i + 1).text("School is not in session")
+    } else if (isCancelled[i] == true) {
+        $(".pEventStatus").eq(i + 1).css("opacity", "1")
+        $(".pEventStatus").eq(i + 1).text("CANCELLED")
+        $(".eWarning").eq(i + 1).show()
+        $(".eWarningLabel").eq(i + 1).text("This event has been cancelled")
+    } else if (isHomeWorkFree[i] == true) {
+        $(".eWarning").eq(i + 1).show()
+        $(".eWarningLabel").eq(i + 1).text("Teachers are not allowed to give homework over this weekend nor have due dates Monday and/or Tuesday")
+        $(".eWarning").eq(i + 1).css("grid-column", "1 / 3")
+    } else if (isStreamed[i] == true) {
+        $(".pEventStatus").eq(i + 1).css("opacity", "1")
+        $(".pEventStatus").eq(i + 1).text("Live Streamed")
+    }
 }
 
 function analyzeSummary(summary, e) {
     summary = rephraseName(summary, e)
     summary = checkIfVirtual(summary, e)
+    summary = checkIfStreamed(summary, e)
     summary = checkIfCancelled(summary, e)
     summary = checkIfSchoolClosed(summary, e)
     summary = checkIfHomeworkFree(summary, e)
@@ -143,7 +163,7 @@ function analyzeSummary(summary, e) {
 function checkIfVirtual(summary, e) { //Sees if event is virtual and returns name after cut
     var isVirtualFront = ["VIRTUAL - ", "Virtual "]
     var isVirtualBack = [" (Virtual)"]
-    var isZoomBack = [" (Zoom)"]
+    var isZoomBack = [" (Zoom)", " via Zoom"]
     for (v in isVirtualFront) {
         if(summary.includes(isVirtualFront[v])) {
             //console.log(isVirtualFront[v])
@@ -164,8 +184,17 @@ function checkIfVirtual(summary, e) { //Sees if event is virtual and returns nam
     return summary
 }
 
+function checkIfStreamed(summary, e) {
+    if(summary.includes("(live stream)")) {
+        splitName = summary.split("(live stream)")
+        summary = splitName[0]
+        isStreamed[e] = true
+    }
+    return summary
+}
+
 function checkIfCancelled(summary, e) {
-    var isCancelledMessages = ["CANCELLED - ", "CANCELED ", "(Cancelled) "] //Some teacher had a typo there, lol
+    var isCancelledMessages = ["CANCELLED - ", "CANCELED ", "(Cancelled) ", "(Canceled) ", "(Cancleced) "] //Some teacher had a typo there, lol
     for (c in isCancelledMessages) {
         if(summary.includes(isCancelledMessages[c])) {
             splitName = summary.split(isCancelledMessages[c])
@@ -185,6 +214,10 @@ function checkIfSchoolClosed(summary, e) {
             isClosed[e] = true
         }
     }
+    if(summary.includes("SCHOOL CLOSED")) {
+        summary = "School Closed"
+        isClosed[e] = true
+    }
     return summary
 }
 
@@ -199,13 +232,13 @@ function checkIfHomeworkFree(summary, e) {
 function rephraseName(summary, e) {
     var wrongName = ["Mtg", ", Aud", "NHS ", "GT", "APA", "BOE", "JSA", " Grad", "MS", "Rm", " Ed ", "CPI", "ASVAB", "LAX", "AHS", "MHRDEA", "Exp.", ". Aud",
     "HSA", "CST", " hr ", " PE ", "AMC", "Spec Svcs", "TLC", "Holiday", "PAL", "Rock/Den", "IEP", " Aud ", "NJAC", "JHS", "Ed ", "MLK, ", "Math Club", "Lang",
-    "Proj", "Tshirt", "Distr", ", Musical"]
+    "Proj", "Tshirt", " Distr ", ", Musical", " Ind ", " Cert/", "Orch ", " Rm", "(SOPH)", "(JR)", "Practice-", "Guard-"]
     var correction = ["Meeting", " - Auditorium", "National Honors Society ", "Gifted & Talented", "Academy of Performing Arts", "Board of Education",
     "Junior State of America", " Graduation", "Middle School", "Room", " Education ", "Crisis Prevention Institute", "Armed Services Vocational Aptitude Battery",
     "Lacrosse", "Applied Health Sciences", "MHRD Education Association", "Experience", "Auditorium", "Home and School Association", "Child Study Team", " Hour",
     "Physical Education", "American Mathematics Competition", "Special Services", "Teen Leadership Council", "Christmas", "Police Athletic League", "Rockaway and Denville",
     "Individualized Education Program/Plan", " Auditorium ", "NJ Athletic Conference", "Junior High School", "Education ", "Marin Luther King ", "Math Club Meeting",
-    "Language", "Project", "T-shirt", "Distribution", " (Musical)"]
+    "Language", "Project", "T-shirt", " Distribution ", " (Musical)", " Induction ", " Certificate/", "Orchestra ", " Room", "(Sophomore)", "(Junior)", "Practice", "Guard"]
     for (n in wrongName) {
         if(summary.includes(wrongName[n])) {
             summary = summary.replace(wrongName[n], correction[n])
@@ -238,8 +271,6 @@ function getRooms(summary, e) {
     return summary
 }
 
-
-
 function toggleOption(type) {
     if (type == "mode") {
         $("#hoverSelect, #clickSelect").toggleClass("optionUnselected optionSelected")
@@ -249,14 +280,13 @@ function toggleOption(type) {
             selectMode = "click";
         }
         hover()
-    } else { //Chaning light/bodyDark
+    } else { //Chaning light/bodyDark theme(s)
         if (theme == "light") {
             theme = "dark";
         } else {
             theme = "light";
         }
-        setDates(0);
-
+        setDates(0); //Really wish I took a different route not requiring this method
         //Body and small calendar
         $("body").toggleClass("bodyDark")
         $("#miniCal").toggleClass("miniCal-dark")
@@ -269,19 +299,6 @@ function toggleOption(type) {
         $("#themeButton").toggleClass("themeButton-dark")
         $("#selectDiv").toggleClass("selectDiv-dark")
         $("#selectButton").toggleClass("selectButton-dark")
-          //Events list
-        //$(".eventTemplate").toggleClass("eventTemplate-dark")
-        $(".previewEvent").toggleClass("previewEvent-dark")
-        $(".pEventName").toggleClass("pEventName-dark")
-        $(".pEventStatus").toggleClass("pEventStatus-dark")
-
-        if (theme == "dark") {
-            console.log("true dark");
-            //$(".eventTemplate").css("background-color", "#525252")
-            //$(".eventTemplate").css("border-color", "848484")
-        } else {
-            //$(".eventTemplate").css("background-color")
-        }
     }
 }
 
@@ -303,8 +320,7 @@ document.onkeydown = checkKey
 function checkKey(e) {
     if (e.keyCode == '37') {
        setDates(-1)
-    }
-    else if (e.keyCode == '39') {
+    } else if (e.keyCode == '39') {
        setDates(1)
     }
 }
