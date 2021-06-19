@@ -1,5 +1,4 @@
 var eventName = [] //The cleaned up event name
-var realStartDate = [] //Isn't set to 1st of month if first day is last month. i.e. Jan 1 for Christmas break would be December 23rd or something
 var startDate = [] //Integer date of start time
 var startTime = [] //Start time
 var endTime = [] //End time
@@ -36,7 +35,6 @@ function appendKnolls(data, currentMonthInt) {
     $(".eventTemplate:not(:first)").remove(); //Clear previous events from DOM, if there are any
     $(".eventTemplate").eq(0).hide() //Hide the first one
     eventName = []
-    realStartDate = []
     startDate = []
     isVirtual = []
     isZoom = []
@@ -82,9 +80,12 @@ function appendKnolls(data, currentMonthInt) {
                 $(".eExtraDates").eq(i + 1).show()
             }
         }
-        $(".eDesc").eq(i + 1).text(setDescription(eventName[i]))
-
-        //$(".eventTemplate").eq(1).addClass("eventTemplate-dark")
+        window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
+        //$(".eDesc").eq(i + 1).text(setDescription(eventName[i]))
     }
     if (theme == "dark") { //Have to place these below bc elments are fully removed when theme switch unlike calendar elements, etc.
         $(".eventTemplate").addClass("eventTemplate-dark")
@@ -104,6 +105,7 @@ function appendKnolls(data, currentMonthInt) {
         setEventStatus(i) //If event is special make status visible
     }
     hover() //Took a whileeee to figure this out! //Update DOM
+    selectDate()
 }
 
 function setEventTemplateColors(i) {
@@ -232,13 +234,14 @@ function checkIfHomeworkFree(summary, e) {
 function rephraseName(summary, e) {
     var wrongName = ["Mtg", ", Aud", "NHS ", "GT", "APA", "BOE", "JSA", " Grad", "MS", "Rm", " Ed ", "CPI", "ASVAB", "LAX", "AHS", "MHRDEA", "Exp.", ". Aud",
     "HSA", "CST", " hr ", " PE ", "AMC", "Spec Svcs", "TLC", "Holiday", "PAL", "Rock/Den", "IEP", " Aud ", "NJAC", "JHS", "Ed ", "MLK, ", "Math Club", "Lang",
-    "Proj", "Tshirt", " Distr ", ", Musical", " Ind ", " Cert/", "Orch ", " Rm", "(SOPH)", "(JR)", "Practice-", "Guard-"]
+    "Proj", "Tshirt", " Distr ", ", Musical", " Ind ", " Cert/", "Orch ", " Rm", "(SOPH)", "(JR)", "Practice-", "Guard-", "(Soph)", "Aud,"]
     var correction = ["Meeting", " - Auditorium", "National Honors Society ", "Gifted & Talented", "Academy of Performing Arts", "Board of Education",
     "Junior State of America", " Graduation", "Middle School", "Room", " Education ", "Crisis Prevention Institute", "Armed Services Vocational Aptitude Battery",
     "Lacrosse", "Applied Health Sciences", "MHRD Education Association", "Experience", "Auditorium", "Home and School Association", "Child Study Team", " Hour",
     "Physical Education", "American Mathematics Competition", "Special Services", "Teen Leadership Council", "Christmas", "Police Athletic League", "Rockaway and Denville",
     "Individualized Education Program/Plan", " Auditorium ", "NJ Athletic Conference", "Junior High School", "Education ", "Marin Luther King ", "Math Club Meeting",
-    "Language", "Project", "T-shirt", " Distribution ", " (Musical)", " Induction ", " Certificate/", "Orchestra ", " Room", "(Sophomore)", "(Junior)", "Practice", "Guard"]
+    "Language", "Project", "T-shirt", " Distribution ", " (Musical)", " Induction ", " Certificate/", "Orchestra ", " Room", "(Sophomore)", "(Junior)", "Practice", "Guard",
+    "(Sophomore)", "Auditorium,"]
     for (n in wrongName) {
         if(summary.includes(wrongName[n])) {
             summary = summary.replace(wrongName[n], correction[n])
@@ -248,6 +251,10 @@ function rephraseName(summary, e) {
 }
 
 function getRooms(summary, e) {
+    if(summary.includes(", C1A")) {
+        summary = summary.replace(", C1A", "")
+        rooms[e] += "C1A"
+    }
     if(summary.includes(" - Auditorium")) {
         summary = summary.replace(" - Auditorium", "")
         rooms[e] += "Auditorium"
@@ -267,6 +274,10 @@ function getRooms(summary, e) {
     if(summary.includes(", Dance Studio")) {
         summary = summary.replace(", Dance Studio", "")
         rooms[e] += "Dance Studio"
+    }
+    if(summary.includes(", Outside Band Room Door")) {
+        summary = summary.replace(", Outside Band Room Door", "")
+        rooms[e] += "Outside Band Room Door"
     }
     return summary
 }
@@ -313,6 +324,21 @@ function hover() { //Expand when hovered upon and show info
         } else {
             $(".eventTemplate").unbind('mouseenter mouseleave')
         }
+}
+
+function selectDate() { //Click on calendar date, scroll to event
+    $(".dayButton-light").click(function() {
+        var date = $(this).text()
+        for (e = 1; e < $(".eventTemplate").length; e++) {
+            splitDate = $(".pEventDate").eq(e).text().split(" ")
+            if (splitDate[1] >= parseInt(date)) {
+                $('html, body').animate({
+                    scrollTop: $(".previewEvent").eq(e-1).offset().top
+                }, 400);
+                break
+            }
+        }
+    })
 }
 
 //Left and right arrow keys to change months
